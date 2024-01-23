@@ -43,12 +43,12 @@ router.get("/products", async (req, res) => {
   products.forEach(
     (productItem, index) =>
       (productsToShow[index] = {
-        상품ID: productItem.productId,
-        상품명: productItem.productName,
-        설명: productItem.content,
-        상태: productItem.isForSale ? "FOR_SALE" : "SOLD_OUT",
-        작성자: productItem.userName,
-        작성일: productItem.date.toISOString().slice(0, 10)
+        productId: productItem.productId,
+        productName: productItem.productName,
+        content: productItem.content,
+        isForSale: productItem.isForSale ? "FOR_SALE" : "SOLD_OUT",
+        userName: productItem.userName,
+        date: productItem.date.toISOString().slice(0, 10)
       })
   );
   // 찾은 '상품'을 클라이언트에게 전달합니다.
@@ -66,11 +66,11 @@ router.get("/products/:productId", async (req, res) => {
 
   const product = {
     // 상품명, 작성 내용, 작성자명, 상품 상태, 작성 날짜 조회하기
-    상품명: productItem.productName,
-    설명: productItem.content,
-    상태: productItem.isForSale ? "FOR_SALE" : "SOLD_OUT",
-    작성자: productItem.userName,
-    작성일: productItem.date.toISOString().slice(0, 10)
+    productName: productItem.productName,
+    content: productItem.content,
+    isForSale: productItem.isForSale ? "FOR_SALE" : "SOLD_OUT",
+    userName: productItem.userName,
+    date: productItem.date.toISOString().slice(0, 10)
   };
 
   return res.json({ product });
