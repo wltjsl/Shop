@@ -101,14 +101,15 @@ router.patch("/products/:productId", async (req, res) => {
   }
 
   if (isForSale === "FOR_SALE") {
-    isForSale = true;
+    currentProduct.isForSale = true;
   } else if (isForSale === "SOLD_OUT") {
-    isForSale = false;
+    currentProduct.isForSale = false;
+  } else {
+    currentProduct.isForSale = isForSale;
   }
 
   currentProduct.productName = productName;
   currentProduct.content = content;
-  currentProduct.isForSale = isForSale;
 
   await currentProduct.save();
 
