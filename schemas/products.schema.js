@@ -1,33 +1,33 @@
 import mongoose from "mongoose";
 
-const ProductSchema = new mongoose.Schema({
-  productName: {
-    type: String,
-    required: true,
-    unique: true
+const ProductSchema = new mongoose.Schema(
+  {
+    productName: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    userName: {
+      type: String,
+      required: true
+    },
+    content: {
+      type: String,
+      required: true
+    },
+    passWord: {
+      type: String,
+      required: true
+    },
+    status: {
+      type: String,
+      enum: ["FOR_SALE", "SOLD_OUT"],
+      default: "FOR_SALE",
+      required: true
+    }
   },
-  userName: {
-    type: String,
-    required: true
-  },
-  content: {
-    type: String,
-    required: true
-  },
-  passWord: {
-    type: Number,
-    required: true
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-    required: true
-  },
-  isForSale: {
-    type: Boolean,
-    required: true
-  }
-});
+  { timestamps: true }
+);
 
 // 프론트엔드 서빙을 위한 코드입니다. 모르셔도 괜찮아요!
 ProductSchema.virtual("productId").get(function () {

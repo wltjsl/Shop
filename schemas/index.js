@@ -7,9 +7,9 @@ const connect = () => {
   mongoose
     .connect(
       // 빨간색으로 표시된 부분은 대여한 ID, Password, 주소에 맞게끔 수정해주세요!
-      `${process.env.API_KEY}`,
+      `${process.env.MONGODB_URI}`,
       {
-        dbName: "node_lv1" // node_lv1 데이터베이스명을 사용합니다.
+        dbName: `MONGODB_DB_NAME` // node_lv1 데이터베이스명을 사용합니다.
       }
     )
     .then(() => console.log("MongoDB 연결에 성공하였습니다."))
