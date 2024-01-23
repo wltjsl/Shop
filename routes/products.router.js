@@ -43,6 +43,7 @@ router.get("/products", async (req, res) => {
   products.forEach(
     (productItem, index) =>
       (productsToShow[index] = {
+        상품ID: productItem.productId,
         상품명: productItem.productName,
         설명: productItem.content,
         상태: productItem.isForSale ? "FOR_SALE" : "SOLD_OUT",
