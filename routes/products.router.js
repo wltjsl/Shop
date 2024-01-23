@@ -100,6 +100,12 @@ router.patch("/products/:productId", async (req, res) => {
     return res.status(404).json({ errorMessage: "변경할 상태를 입력해주세요." });
   }
 
+  if (isForSale === "FOR_SALE") {
+    isForSale = true;
+  } else if (isForSale === "SOLD_OUT") {
+    isForSale = false;
+  }
+
   currentProduct.productName = productName;
   currentProduct.content = content;
   currentProduct.isForSale = isForSale;
