@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import mongoose from "mongoose";
 
 const connect = () => {
@@ -5,7 +7,7 @@ const connect = () => {
   mongoose
     .connect(
       // 빨간색으로 표시된 부분은 대여한 ID, Password, 주소에 맞게끔 수정해주세요!
-      "mongodb+srv://ljss7291:8ErurufzAzs3oWug@express-mongo.ghcjobj.mongodb.net/?retryWrites=true&w=majority",
+      `${process.env.API_KEY}`,
       {
         dbName: "node_lv1" // node_lv1 데이터베이스명을 사용합니다.
       }
