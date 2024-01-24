@@ -34,7 +34,7 @@ router.post("/products", async (req, res) => {
     });
 
     await createdProduct.save();
-    return res.status(201).json({ message: "상품이 등록되었습니다." });
+    return res.status(201).json({ success: true, message: "상품이 등록되었습니다." });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, errorMessage: "예기치 못한 에러가 발생했습니다." });
@@ -52,7 +52,7 @@ router.get("/products", async (req, res) => {
       .exec();
 
     if (!products.length) {
-      return res.status(404).json({ errorMessage: "등록된 상품이 없습니다." });
+      return res.status(404).json({ success: false, errorMessage: "등록된 상품이 없습니다." });
     }
     // 찾은 '상품'을 클라이언트에게 전달합니다.
     return res.json(products);
@@ -71,7 +71,7 @@ router.get("/products/:productId", async (req, res) => {
     );
 
     if (!productItem) {
-      return res.status(404).json({ errorMessage: "등록된 상품이 없습니다." });
+      return res.status(404).json({ success: false, errorMessage: "등록된 상품이 없습니다." });
     }
 
     return res.json(productItem);
@@ -89,21 +89,21 @@ router.patch("/products/:productId", async (req, res) => {
 
     const currentProduct = await Product.findById(productId).exec();
     if (!currentProduct) {
-      return res.status(404).json({ errorMessage: "상품 조회에 실패하였습니다." });
+      return res.status(404).json({ success: false, errorMessage: "상품 조회에 실패하였습니다." });
     }
 
     if (currentProduct.passWord !== passWord) {
-      return res.status(404).json({ errorMessage: "비밀번호가 다릅니다." });
+      return res.status(404).json({ success: false, errorMessage: "비밀번호가 다릅니다." });
     }
 
     if (!productName) {
-      return res.status(404).json({ errorMessage: "수정할 상품명을 입력해주세요." });
+      return res.status(404).json({ success: false, errorMessage: "수정할 상품명을 입력해주세요." });
     }
     if (!content) {
-      return res.status(404).json({ errorMessage: "수정할 설명을 입력해주세요." });
+      return res.status(404).json({ success: false, errorMessage: "수정할 설명을 입력해주세요." });
     }
     if (!status) {
-      return res.status(404).json({ errorMessage: "변경할 상태를 입력해주세요." });
+      return res.status(404).json({ success: false, errorMessage: "변경할 상태를 입력해주세요." });
     }
 
     currentProduct.status = status;
@@ -112,7 +112,7 @@ router.patch("/products/:productId", async (req, res) => {
 
     await currentProduct.save();
 
-    return res.status(200).json({ message: "성공적으로 수정되었습니다." });
+    return res.status(200).json({ success: true, message: "성공적으로 수정되었습니다." });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, errorMessage: "예기치 못한 에러가 발생했습니다." });
@@ -127,16 +127,16 @@ router.delete("/products/:productId", async (req, res) => {
 
     const product = await Product.findById(productId).exec();
     if (!product) {
-      return res.status(404).json({ errorMessage: "상품 조회에 실패하였습니다." });
+      return res.status(404).json({ success: false, errorMessage: "상품 조회에 실패하였습니다." });
     }
 
     if (product.passWord !== passWord) {
-      return res.status(404).json({ errorMessage: "비밀번호가 다릅니다." });
+      return res.status(404).json({ success: false, errorMessage: "비밀번호가 다릅니다." });
     }
 
     await Product.deleteOne({ _id: productId }).exec();
 
-    return res.status(200).json({ message: "성공적으로 삭제되었습니다." });
+    return res.status(200).json({ success: true, message: "성공적으로 삭제되었습니다." });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, errorMessage: "예기치 못한 에러가 발생했습니다." });
